@@ -35,7 +35,7 @@ async function downloadFile(url, outputPath) {
   });
 }
 
-async function setupModel() {
+async function setupModel(port) {
   try {
     console.log('Downloading llamafile.exe...');
     await downloadFile('https://github.com/Mozilla-Ocho/llamafile/releases/download/0.6/llamafile-0.6', 'llamafile.exe');
@@ -44,11 +44,11 @@ async function setupModel() {
     await downloadFile('https://huggingface.co/TheBloke/TinyLlama-1.1B-Chat-v1.0-GGUF/resolve/main/tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf', 'tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf');
 
     console.log('Starting llamafile.exe server...');
-    execSync('llamafile.exe -m tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf', { stdio: 'inherit' });
+    execSync(`llamafile.exe -m tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf --nobrowser --port ${port}`, { stdio: 'inherit' });
 
   } catch (error) {
     console.error('An error occurred:', error);
   }
 }
 
-setupModel();
+setupModel(4000);
